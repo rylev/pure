@@ -2,6 +2,14 @@ enum Maybe<T> {
     case Just(T)
     case None
 
+    // Functor
+    func fmap<R>(fn: (T) -> (R)) -> Maybe<R> {
+        switch self {
+            case let .Some(x): return Maybe<R>.Some(fn(x))
+            case .None: return .None
+        }
+    }
+
     func maybe(def: T, fn: (T) -> (T)) -> T {
         switch self {
             case let Just(x): return fn(x)
